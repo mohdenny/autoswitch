@@ -1,7 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const fs = require('fs')
-const parser = require('xml2json')
+const xmlToJson = require('../../module/xmlToJson')
 
 // @route GET api/playlist
 // @desc Get all playlist
@@ -9,11 +8,8 @@ const parser = require('xml2json')
 
 router.get('/xml', async (req,res) => {
     try {
-        fs.readFile('./source/xml/METROTV_20211101_001_BACKUP.xml', (err, data) => {
-            const json = parser.toJson(data)
-
-            res.send(json)
-        })
+        console.log(xmlToJson('./source/xml/METROTV_20211101_001_BACKUP.xml'))
+        res.send('ok')
     } catch (err) {
         console.error(err.message)
         res.status(500).send('Server Error')
@@ -26,10 +22,12 @@ router.get('/xml', async (req,res) => {
 
 router.get('/txt', async (req,res) => {
     try {
-        fs.readFile('./source/txt/test.txt', 'utf8', (err, data) => {
-            const chunk = data.toString()
-            res.send(chunk)
-        })
+        // fs.readFile('./source/txt/test.txt', 'utf8', (err, data) => {
+        //     const chunk = data.toString()
+        //     res.send(chunk)
+        // })
+
+        
     } catch (err) {
         console.error(err.message)
         res.status(500).send('Server Error')
